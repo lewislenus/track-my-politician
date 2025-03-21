@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Politician from '@/components/Politician';
@@ -14,7 +13,6 @@ const Politicians = () => {
   const [filterParty, setFilterParty] = useState('');
   const [sortOption, setSortOption] = useState('rating-desc');
   
-  // Mock data for politicians
   const politicians = [
     {
       id: '1',
@@ -90,7 +88,6 @@ const Politicians = () => {
     },
   ];
   
-  // Filter and sort politicians
   const filteredPoliticians = politicians.filter(politician => {
     const matchesSearch = politician.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          politician.position.toLowerCase().includes(searchQuery.toLowerCase());
@@ -115,7 +112,6 @@ const Politicians = () => {
     }
   });
   
-  // Unique regions and parties for filters
   const regions = [...new Set(politicians.map(p => p.region))];
   const parties = [...new Set(politicians.map(p => p.party))];
 
@@ -132,7 +128,6 @@ const Politicians = () => {
             </p>
           </div>
           
-          {/* Filters and Search */}
           <div className="bg-card shadow-sm border border-border rounded-xl p-6 mb-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="relative">
@@ -150,7 +145,7 @@ const Politicians = () => {
                   <SelectValue placeholder="Filter by Region" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Regions</SelectItem>
+                  <SelectItem value="all">All Regions</SelectItem>
                   {regions.map((region) => (
                     <SelectItem key={region} value={region}>{region} Region</SelectItem>
                   ))}
@@ -162,7 +157,7 @@ const Politicians = () => {
                   <SelectValue placeholder="Filter by Party" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Parties</SelectItem>
+                  <SelectItem value="all">All Parties</SelectItem>
                   {parties.map((party) => (
                     <SelectItem key={party} value={party}>{party}</SelectItem>
                   ))}
@@ -188,7 +183,6 @@ const Politicians = () => {
             </div>
           </div>
           
-          {/* Politicians Grid */}
           {filteredPoliticians.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPoliticians.map((politician) => (
@@ -212,7 +206,6 @@ const Politicians = () => {
             </div>
           )}
           
-          {/* Load More Button (for real app with pagination) */}
           {filteredPoliticians.length > 0 && (
             <div className="mt-12 text-center">
               <Button variant="outline" size="lg">
