@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Politicians from "./pages/Politicians";
 import PoliticianDetail from "./pages/PoliticianDetail";
 import Promises from "./pages/Promises";
+import Parliament from "./pages/Parliament";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/politicians" element={<Politicians />} />
           <Route path="/politicians/:id" element={<PoliticianDetail />} />
           <Route path="/promises" element={<Promises />} />
+          <Route path="/parliament" element={<Parliament />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
