@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Politicians from "./pages/Politicians";
 import PoliticianDetail from "./pages/PoliticianDetail";
+import Promises from "./pages/Promises";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/politicians" element={<Politicians />} />
           <Route path="/politicians/:id" element={<PoliticianDetail />} />
+          <Route path="/promises" element={<Promises />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
