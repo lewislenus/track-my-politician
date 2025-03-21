@@ -10,8 +10,8 @@ import { Search, Filter } from 'lucide-react';
 
 const Promises = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterCategory, setFilterCategory] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterCategory, setFilterCategory] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
   
   // Mock data for promises
   const promises = [
@@ -122,8 +122,8 @@ const Promises = () => {
                          promise.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          promise.politician.name.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesCategory = filterCategory === '' || promise.category === filterCategory;
-    const matchesStatus = filterStatus === '' || promise.status === filterStatus;
+    const matchesCategory = filterCategory === 'all' || promise.category === filterCategory;
+    const matchesStatus = filterStatus === 'all' || promise.status === filterStatus;
     
     return matchesSearch && matchesCategory && matchesStatus;
   });
@@ -162,7 +162,7 @@ const Promises = () => {
                     <SelectValue placeholder="Filter by Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Categories</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
                     {categories.map((category) => (
                       <SelectItem key={category} value={category}>{category}</SelectItem>
                     ))}
@@ -176,7 +176,7 @@ const Promises = () => {
                     <SelectValue placeholder="Filter by Status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Statuses</SelectItem>
+                    <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="not-started">Not Started</SelectItem>
                     <SelectItem value="in-progress">In Progress</SelectItem>
                     <SelectItem value="completed">Completed</SelectItem>
@@ -211,8 +211,8 @@ const Promises = () => {
                 className="mt-4"
                 onClick={() => {
                   setSearchQuery('');
-                  setFilterCategory('');
-                  setFilterStatus('');
+                  setFilterCategory('all');
+                  setFilterStatus('all');
                 }}
               >
                 Clear Filters
