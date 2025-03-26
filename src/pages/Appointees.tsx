@@ -11,8 +11,8 @@ import Politician from '@/components/Politician';
 
 const Appointees = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterRegion, setFilterRegion] = useState('');
-  const [filterRole, setFilterRole] = useState('');
+  const [filterRegion, setFilterRegion] = useState('all');
+  const [filterRole, setFilterRole] = useState('all');
   
   // Mock data for political appointees
   const appointees = [
@@ -105,8 +105,8 @@ const Appointees = () => {
     const matchesSearch = appointee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          appointee.position.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesRegion = !filterRegion || appointee.region === filterRegion;
-    const matchesRole = !filterRole || appointee.role === filterRole;
+    const matchesRegion = filterRegion === 'all' || appointee.region === filterRegion;
+    const matchesRole = filterRole === 'all' || appointee.role === filterRole;
     
     return matchesSearch && matchesRegion && matchesRole;
   });
@@ -142,7 +142,7 @@ const Appointees = () => {
                     <SelectValue placeholder="Filter by Region" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Regions</SelectItem>
+                    <SelectItem value="all">All Regions</SelectItem>
                     {regions.map((region) => (
                       <SelectItem key={region} value={region}>{region} Region</SelectItem>
                     ))}
@@ -156,7 +156,7 @@ const Appointees = () => {
                     <SelectValue placeholder="Filter by Role" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Roles</SelectItem>
+                    <SelectItem value="all">All Roles</SelectItem>
                     {roles.map((role) => (
                       <SelectItem key={role} value={role}>{role}</SelectItem>
                     ))}
@@ -183,8 +183,8 @@ const Appointees = () => {
                 className="mt-4"
                 onClick={() => {
                   setSearchQuery('');
-                  setFilterRegion('');
-                  setFilterRole('');
+                  setFilterRegion('all');
+                  setFilterRole('all');
                 }}
               >
                 Clear Filters

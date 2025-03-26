@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Politician from '@/components/Politician';
@@ -9,8 +10,8 @@ import { Search, Filter, Star } from 'lucide-react';
 
 const Politicians = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterRegion, setFilterRegion] = useState('');
-  const [filterParty, setFilterParty] = useState('');
+  const [filterRegion, setFilterRegion] = useState('all');
+  const [filterParty, setFilterParty] = useState('all');
   const [sortOption, setSortOption] = useState('rating-desc');
   
   const politicians = [
@@ -91,8 +92,8 @@ const Politicians = () => {
   const filteredPoliticians = politicians.filter(politician => {
     const matchesSearch = politician.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          politician.position.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesRegion = !filterRegion || politician.region === filterRegion;
-    const matchesParty = !filterParty || politician.party === filterParty;
+    const matchesRegion = filterRegion === 'all' || politician.region === filterRegion;
+    const matchesParty = filterParty === 'all' || politician.party === filterParty;
     
     return matchesSearch && matchesRegion && matchesParty;
   }).sort((a, b) => {
@@ -197,8 +198,8 @@ const Politicians = () => {
                 className="mt-4"
                 onClick={() => {
                   setSearchQuery('');
-                  setFilterRegion('');
-                  setFilterParty('');
+                  setFilterRegion('all');
+                  setFilterParty('all');
                 }}
               >
                 Reset Filters

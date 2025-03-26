@@ -11,8 +11,8 @@ import Politician from '@/components/Politician';
 
 const Ministers = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterRegion, setFilterRegion] = useState('');
-  const [filterMinistry, setFilterMinistry] = useState('');
+  const [filterRegion, setFilterRegion] = useState('all');
+  const [filterMinistry, setFilterMinistry] = useState('all');
   
   // Mock data for ministers
   const ministers = [
@@ -106,8 +106,8 @@ const Ministers = () => {
                          minister.position.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          minister.ministry.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesRegion = !filterRegion || minister.region === filterRegion;
-    const matchesMinistry = !filterMinistry || minister.ministry === filterMinistry;
+    const matchesRegion = filterRegion === 'all' || minister.region === filterRegion;
+    const matchesMinistry = filterMinistry === 'all' || minister.ministry === filterMinistry;
     
     return matchesSearch && matchesRegion && matchesMinistry;
   });
@@ -143,7 +143,7 @@ const Ministers = () => {
                     <SelectValue placeholder="Filter by Region" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Regions</SelectItem>
+                    <SelectItem value="all">All Regions</SelectItem>
                     {regions.map((region) => (
                       <SelectItem key={region} value={region}>{region} Region</SelectItem>
                     ))}
@@ -157,7 +157,7 @@ const Ministers = () => {
                     <SelectValue placeholder="Filter by Ministry" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Ministries</SelectItem>
+                    <SelectItem value="all">All Ministries</SelectItem>
                     {ministries.map((ministry) => (
                       <SelectItem key={ministry} value={ministry}>Ministry of {ministry}</SelectItem>
                     ))}
@@ -184,8 +184,8 @@ const Ministers = () => {
                 className="mt-4"
                 onClick={() => {
                   setSearchQuery('');
-                  setFilterRegion('');
-                  setFilterMinistry('');
+                  setFilterRegion('all');
+                  setFilterMinistry('all');
                 }}
               >
                 Clear Filters
