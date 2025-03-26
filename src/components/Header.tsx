@@ -74,13 +74,18 @@ const Header = () => {
                 <NavigationMenuTrigger className={
                   cn(
                     "text-sm font-medium transition-colors hover:text-primary",
-                    (location.pathname === "/politicians" || location.pathname === "/parliament" || location.pathname.startsWith("/politicians/")) ? "text-primary" : "text-foreground/80"
+                    (location.pathname === "/politicians" || 
+                     location.pathname === "/parliament" || 
+                     location.pathname === "/ministers" || 
+                     location.pathname === "/appointees" || 
+                     location.pathname.startsWith("/politicians/")) 
+                      ? "text-primary" : "text-foreground/80"
                   )
                 }>
                   Politicians
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-3 p-4">
+                  <ul className="grid w-[240px] gap-3 p-4">
                     <li>
                       <NavigationMenuLink asChild>
                         <NavLink
@@ -113,6 +118,42 @@ const Header = () => {
                           <div className="text-sm font-medium leading-none">Parliament</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             View members of parliament
+                          </p>
+                        </NavLink>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <NavLink
+                          to="/ministers"
+                          className={({ isActive }) =>
+                            cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              isActive ? "bg-accent text-accent-foreground" : "transparent"
+                            )
+                          }
+                        >
+                          <div className="text-sm font-medium leading-none">Ministers of State</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            View cabinet ministers
+                          </p>
+                        </NavLink>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <NavLink
+                          to="/appointees"
+                          className={({ isActive }) =>
+                            cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              isActive ? "bg-accent text-accent-foreground" : "transparent"
+                            )
+                          }
+                        >
+                          <div className="text-sm font-medium leading-none">Political Appointees</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            View government appointees
                           </p>
                         </NavLink>
                       </NavigationMenuLink>
@@ -198,6 +239,24 @@ const Header = () => {
               }
             >
               Parliament
+            </NavLink>
+            <NavLink 
+              to="/ministers" 
+              className={({ isActive }) => 
+                cn("text-lg font-medium transition-colors hover:text-primary pl-6", 
+                  isActive ? "text-primary" : "text-foreground/80")
+              }
+            >
+              Ministers
+            </NavLink>
+            <NavLink 
+              to="/appointees" 
+              className={({ isActive }) => 
+                cn("text-lg font-medium transition-colors hover:text-primary pl-6", 
+                  isActive ? "text-primary" : "text-foreground/80")
+              }
+            >
+              Appointees
             </NavLink>
             <NavLink 
               to="/promises" 
