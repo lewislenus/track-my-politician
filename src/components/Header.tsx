@@ -2,9 +2,18 @@
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,15 +67,62 @@ const Header = () => {
           >
             Home
           </NavLink>
-          <NavLink 
-            to="/politicians" 
-            className={({ isActive }) => 
-              cn("text-sm font-medium transition-colors hover:text-primary", 
-                isActive ? "text-primary" : "text-foreground/80")
-            }
-          >
-            Politicians
-          </NavLink>
+          
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={
+                  cn(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    (location.pathname === "/politicians" || location.pathname === "/parliament" || location.pathname.startsWith("/politicians/")) ? "text-primary" : "text-foreground/80"
+                  )
+                }>
+                  Politicians
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[200px] gap-3 p-4">
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <NavLink
+                          to="/politicians"
+                          className={({ isActive }) =>
+                            cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              isActive ? "bg-accent text-accent-foreground" : "transparent"
+                            )
+                          }
+                        >
+                          <div className="text-sm font-medium leading-none">All Politicians</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Browse all politicians
+                          </p>
+                        </NavLink>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <NavLink
+                          to="/parliament"
+                          className={({ isActive }) =>
+                            cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              isActive ? "bg-accent text-accent-foreground" : "transparent"
+                            )
+                          }
+                        >
+                          <div className="text-sm font-medium leading-none">Parliament</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            View members of parliament
+                          </p>
+                        </NavLink>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          
           <NavLink 
             to="/promises" 
             className={({ isActive }) => 
@@ -75,15 +131,6 @@ const Header = () => {
             }
           >
             Promises
-          </NavLink>
-          <NavLink 
-            to="/parliament" 
-            className={({ isActive }) => 
-              cn("text-sm font-medium transition-colors hover:text-primary", 
-                isActive ? "text-primary" : "text-foreground/80")
-            }
-          >
-            Parliament
           </NavLink>
           <NavLink 
             to="/dashboard" 
@@ -144,6 +191,15 @@ const Header = () => {
               Politicians
             </NavLink>
             <NavLink 
+              to="/parliament" 
+              className={({ isActive }) => 
+                cn("text-lg font-medium transition-colors hover:text-primary pl-6", 
+                  isActive ? "text-primary" : "text-foreground/80")
+              }
+            >
+              Parliament
+            </NavLink>
+            <NavLink 
               to="/promises" 
               className={({ isActive }) => 
                 cn("text-lg font-medium transition-colors hover:text-primary", 
@@ -151,15 +207,6 @@ const Header = () => {
               }
             >
               Promises
-            </NavLink>
-            <NavLink 
-              to="/parliament" 
-              className={({ isActive }) => 
-                cn("text-lg font-medium transition-colors hover:text-primary", 
-                  isActive ? "text-primary" : "text-foreground/80")
-              }
-            >
-              Parliament
             </NavLink>
             <NavLink 
               to="/dashboard" 
