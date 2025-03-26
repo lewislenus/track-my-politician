@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ const Header = () => {
     <header 
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out py-4",
-        scrolled ? "glass py-3" : "bg-transparent"
+        scrolled ? "dark:glass-dark glass py-3" : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -41,7 +42,7 @@ const Header = () => {
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
             <span className="text-primary font-bold text-lg">GPA</span>
           </div>
-          <span className="font-display font-medium text-lg hidden sm:inline-block">
+          <span className="font-display font-medium text-lg hidden sm:inline-block ghana-text-gradient">
             GhanaPolitics
           </span>
         </NavLink>
@@ -76,6 +77,15 @@ const Header = () => {
             Promises
           </NavLink>
           <NavLink 
+            to="/parliament" 
+            className={({ isActive }) => 
+              cn("text-sm font-medium transition-colors hover:text-primary", 
+                isActive ? "text-primary" : "text-foreground/80")
+            }
+          >
+            Parliament
+          </NavLink>
+          <NavLink 
             to="/dashboard" 
             className={({ isActive }) => 
               cn("text-sm font-medium transition-colors hover:text-primary", 
@@ -88,6 +98,7 @@ const Header = () => {
 
         {/* Authentication Buttons */}
         <div className="hidden md:flex items-center space-x-4">
+          <ThemeToggle />
           <Button variant="ghost" size="sm" className="group" onClick={() => console.log('Sign up clicked')}>
             <span className="transition-transform group-hover:translate-x-0.5">Sign Up</span>
           </Button>
@@ -98,14 +109,16 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <Button 
-          variant="ghost" 
-          size="icon"
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -138,6 +151,15 @@ const Header = () => {
               }
             >
               Promises
+            </NavLink>
+            <NavLink 
+              to="/parliament" 
+              className={({ isActive }) => 
+                cn("text-lg font-medium transition-colors hover:text-primary", 
+                  isActive ? "text-primary" : "text-foreground/80")
+              }
+            >
+              Parliament
             </NavLink>
             <NavLink 
               to="/dashboard" 

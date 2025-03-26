@@ -20,18 +20,18 @@ const ParliamentMemberCard = ({ member }: ParliamentMemberCardProps) => {
       .toUpperCase();
   };
 
-  // Determine party color
+  // Determine party color based on Ghana flag colors
   const partyColors: Record<string, string> = {
-    'NPP': 'bg-blue-100 text-blue-700',
-    'NDC': 'bg-green-100 text-green-700',
-    'Independent': 'bg-gray-100 text-gray-700',
+    'NPP': 'bg-ghana-red/20 text-ghana-red border border-ghana-red/30',
+    'NDC': 'bg-ghana-green/20 text-ghana-green border border-ghana-green/30',
+    'Independent': 'bg-ghana-gold/20 text-ghana-gold border border-ghana-gold/30',
     'default': 'bg-primary/10 text-primary',
   };
 
   const partyColor = member.party ? (partyColors[member.party] || partyColors.default) : partyColors.default;
 
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 dark:bg-card/50 dark:backdrop-blur-sm">
       <CardHeader className="p-0">
         <div className="aspect-[4/3] relative overflow-hidden bg-muted">
           {member.image ? (
@@ -54,9 +54,9 @@ const ParliamentMemberCard = ({ member }: ParliamentMemberCardProps) => {
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex items-center mb-3">
-          <Avatar className="h-10 w-10 mr-3">
+          <Avatar className="h-10 w-10 mr-3 ring-2 ring-ghana-gold/50">
             <AvatarImage src={member.image} alt={member.name} />
-            <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
+            <AvatarFallback className="bg-ghana-black text-ghana-gold">{getInitials(member.name)}</AvatarFallback>
           </Avatar>
           <div>
             <h3 className="font-semibold line-clamp-1">{member.name}</h3>
