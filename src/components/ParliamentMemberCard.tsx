@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ParliamentMember } from "@/services/parliamentService";
-import { User } from "lucide-react";
+import { User, Users } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ParliamentMemberCardProps {
   member: ParliamentMember;
@@ -77,8 +78,39 @@ const ParliamentMemberCard = ({ member }: ParliamentMemberCardProps) => {
         )}
         
         {member.contact && (
-          <div className="text-sm truncate">
+          <div className="text-sm mb-1 truncate">
             <span className="font-medium">Contact:</span> {member.contact}
+          </div>
+        )}
+        
+        {member.committees && member.committees.length > 0 && (
+          <div className="mt-2">
+            <div className="flex items-center gap-1 text-sm mb-1">
+              <Users className="h-3.5 w-3.5 text-primary" />
+              <span className="font-medium">Committees:</span>
+            </div>
+            <div className="flex flex-wrap gap-1 mt-1">
+              {member.committees.map((committee, index) => (
+                <TooltipProvider key={index}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Badge variant="outline" className="text-xs py-0">
+                        {committee.length > 20 ? `${committee.substring(0, 20)}...` : committee}
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{committee}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {member.committeeRole && (
+          <div className="text-sm mt-2 text-primary">
+            <span className="font-medium">{member.committeeRole}</span>
           </div>
         )}
       </CardContent>
